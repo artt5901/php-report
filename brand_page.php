@@ -8,15 +8,16 @@ $lastid = $row['b_id'];
 if ($lastid == "") {
     $bt_id = "b001";
 } else {
-    $bt_idd = str_replace("b","",$lastid);
+    $bt_idd = str_replace("b", "", $lastid);
     $bt_id = str_pad($bt_idd + 1, 3, 0, STR_PAD_LEFT);
-    $number = 'b' .$bt_id;
+    $number = 'b' . $bt_id;
 }
 
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<title>ยี่ห้อเครื่องปรับอากาศ</title>
 <head>
 
     <meta charset="utf-8">
@@ -25,7 +26,7 @@ if ($lastid == "") {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ยี่ห้อเครื่องปรับอากาศ</title>
+    
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,6 +34,8 @@ if ($lastid == "") {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
 
 </head>
 
@@ -59,7 +62,7 @@ if ($lastid == "") {
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                        <table class="table table-bordered" id="mytable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
                                     <th style="display: none;">รหัสยี่ห้อเครื่องปรับอากาศ</th>
@@ -220,18 +223,7 @@ if ($lastid == "") {
         </div>
     </div>
 
-    <!-- ########################################## Script #########################################################-->
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-<!-------------------------------------------- edit --------------------------------->
+    <!-------------------------------------------- edit --------------------------------->
     <script>
         $(document).ready(function() {
             $('.editbtn').on('click', function() {
@@ -247,7 +239,7 @@ if ($lastid == "") {
             });
         });
     </script>
-<!-------------------------------------------- edit --------------------------------->
+    <!-------------------------------------------- edit --------------------------------->
     <script>
         $(document).ready(function() {
             $('.deletebtn').on('click', function() {
@@ -263,6 +255,8 @@ if ($lastid == "") {
             });
         });
     </script>
+
+
 </body>
 
 </html>
