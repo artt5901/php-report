@@ -8,9 +8,7 @@ $lastid = $row['s_id'];
 if ($lastid == "") {
     $st_id = "s001";
 } else {
-    // $st_id = substr($lastid, 3);
-    // $st_id = intval($st_id);
-    // $st_id = "s00" . ($st_id + 1);
+
     $st_idd = str_replace("s","",$lastid);
     $st_id = str_pad($st_idd + 1, 3, 0, STR_PAD_LEFT);
     $number = 's' .$st_id;
