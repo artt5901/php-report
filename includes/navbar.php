@@ -14,8 +14,8 @@
  <!-- Nav Item - Dashboard -->
  <li class="nav-item">
      <a class="nav-link" href="index.php">
-         <i class="fas fa-fw fa-tachometer-alt"></i>
-         <span>Dashboard</span></a>
+         <i class="far fa-file-pdf"></i>
+         <span>Report</span></a>
  </li>
 
  <!-- Divider -->
@@ -37,6 +37,7 @@
              <h6 class="collapse-header">จัดการข้อมูลพื้นฐาน:</h6>
              <a class="collapse-item" href="refrigarent_page.php">ข้อมูลประเภทน้ำยา</a>
              <a class="collapse-item" href="brand_page.php">ข้อมูลยี่ห้อเครื่องปรับอากาศ</a>
+             <a class="collapse-item" href="team_page.php">ข้อมูลทีมช่าง</a>
              <a class="collapse-item" href="status_page.php">ข้อมูลสถานะ</a>
              <!-- 
              <a class="collapse-item" href="price.php">ข้อมูลราคาสินค้า</a> -->
