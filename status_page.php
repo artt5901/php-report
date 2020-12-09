@@ -1,15 +1,19 @@
 <?php include 'includes/connect.php';
 /*---------------- genarate id and add-----------------*/
-$query = $db->prepare("SELECT * FROM sy_status ORDER BY s_id DESC limit 1");
+$query = $db->prepare("SELECT * FROM sy_status ORDER BY s_id DESC");
 $query->execute();
 $row = $query->fetch(PDO::FETCH_ASSOC);
 $lastid = $row['s_id'];
+
 if ($lastid == "") {
     $st_id = "s001";
 } else {
-    $st_id = substr($lastid, 3);
-    $st_id = intval($st_id);
-    $st_id = "s00" . ($st_id + 1);
+    // $st_id = substr($lastid, 3);
+    // $st_id = intval($st_id);
+    // $st_id = "s00" . ($st_id + 1);
+    $st_idd = str_replace("s","",$lastid);
+    $st_id = str_pad($st_idd + 1, 3, 0, STR_PAD_LEFT);
+    $number = 's' .$st_id;
 }
 
 ?>
@@ -146,9 +150,9 @@ if ($lastid == "") {
                     </div>
                     <div class="modal-body">
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label>รหัสสถานะ</label>
-                            <input type="text" class="form-control" id="id_status" name="status_id" value="<?php echo $st_id ?>" readonly>
+                            <input type="text" class="form-control" id="id_status" name="status_id" value="<?php echo $number ?>" readonly>
 
                         </div>
                         <div class="form-group">

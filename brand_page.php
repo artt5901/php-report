@@ -5,29 +5,13 @@ $query->execute();
 $row = $query->fetch(PDO::FETCH_ASSOC);
 $lastid = $row['b_id'];
 
-if ($lastid == "b010" && $lastid == "") {
-    $bt_id = "b011";
-} else {
-    $bt_id = substr($lastid, 2);
-    $bt_id = intval($bt_id);
-    $bt_id = "b0" . ($bt_id + 1);
-}
-
 if ($lastid == "") {
     $bt_id = "b001";
-} elseif($lastid == "b009") {
-    $bt_id = "b010";
-}else {
-       $bt_id = substr($lastid, 3);
-        $bt_id = intval($bt_id);
-        $bt_id = "b00" . ($bt_id + 1);
-     }
-    //  if ($lastid == "b010") {
-    //     $bt_id = substr($lastid, 3);
-    //     $bt_id = intval($bt_id);
-    //     $bt_id = "b0" . ($bt_id + 1);
-    // }
-
+} else {
+    $bt_idd = str_replace("b","",$lastid);
+    $bt_id = str_pad($bt_idd + 1, 3, 0, STR_PAD_LEFT);
+    $number = 'b' .$bt_id;
+}
 
 
 ?>
@@ -164,9 +148,9 @@ if ($lastid == "") {
                     </div>
                     <div class="modal-body">
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label>รหัสยี่ห้อเครื่องปรับอากาศ</label>
-                            <input type="text" class="form-control" id="id_status" name="brand_id" value="<?php echo $bt_id ?>" readonly>
+                            <input type="text" class="form-control" id="id_status" name="brand_id" value="<?php echo $number ?>" readonly>
 
                         </div>
                         <div class="form-group">

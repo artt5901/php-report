@@ -7,9 +7,12 @@ $lastid = $row['r_id'];
 if ($lastid == "") {
     $rt_id = "r001";
 } else {
-    $rt_id = substr($lastid, 3);
-    $rt_id = intval($rt_id);
-    $rt_id = "r00" . ($rt_id + 1);
+    // $rt_id = substr($lastid, 3);
+    // $rt_id = intval($rt_id);
+    // $rt_id = "r00" . ($rt_id + 1);
+    $rt_idd = str_replace("r","",$lastid);
+    $rt_id = str_pad($rt_idd + 1, 3, 0, STR_PAD_LEFT);
+    $number = 'r' .$rt_id;
 }
 
 ?>
@@ -148,7 +151,7 @@ if ($lastid == "") {
 
                         <div class="form-group" style="display: none;">
                             <label>รหัสประเภทน้ำยา</label>
-                            <input type="text" class="form-control" id="id_status" name="refrig_id" value="<?php echo $rt_id ?>" readonly>
+                            <input type="text" class="form-control" id="id_status" name="refrig_id" value="<?php echo $number ?>" readonly>
 
                         </div>
                         <div class="form-group">
