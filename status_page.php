@@ -1,38 +1,23 @@
 <?php include 'includes/connect.php';
 /*---------------- genarate id and add-----------------*/
-$query = $db->prepare("SELECT * FROM sy_status ORDER BY s_id DESC limit 1");
+$query = $db->prepare("SELECT * FROM sy_status ORDER BY s_id DESC");
 $query->execute();
 $row = $query->fetch(PDO::FETCH_ASSOC);
 $lastid = $row['s_id'];
+
 if ($lastid == "") {
     $st_id = "s001";
 } else {
-    $st_id = substr($lastid, 3);
-    $st_id = intval($st_id);
-    $st_id = "s00" . ($st_id + 1);
+
+    $st_idd = str_replace("s", "", $lastid);
+    $st_id = str_pad($st_idd + 1, 3, 0, STR_PAD_LEFT);
+    $number = 's' . $st_id;
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>สถานะ</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
+  <title>สถานะ</title>
 
 <body id="page-top">
 
@@ -57,7 +42,7 @@ if ($lastid == "") {
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                        <table class="table table-bordered" id="mytable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
                                     <th style="display: none;">รหัสสถานะ</th>
@@ -146,9 +131,9 @@ if ($lastid == "") {
                     </div>
                     <div class="modal-body">
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label>รหัสสถานะ</label>
-                            <input type="text" class="form-control" id="id_status" name="status_id" value="<?php echo $st_id ?>" readonly>
+                            <input type="text" class="form-control" id="id_status" name="status_id" value="<?php echo $number ?>" readonly>
 
                         </div>
                         <div class="form-group">
@@ -218,18 +203,7 @@ if ($lastid == "") {
         </div>
     </div>
 
-    <!-- ########################################## Script #########################################################-->
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-<!-------------------------------------------- edit --------------------------------->
+    <!-------------------------------------------- edit --------------------------------->
     <script>
         $(document).ready(function() {
             $('.editbtn').on('click', function() {
@@ -245,7 +219,7 @@ if ($lastid == "") {
             });
         });
     </script>
-<!-------------------------------------------- edit --------------------------------->
+    <!-------------------------------------------- edit --------------------------------->
     <script>
         $(document).ready(function() {
             $('.deletebtn').on('click', function() {

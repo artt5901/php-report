@@ -1,43 +1,23 @@
 <?php include 'includes/connect.php';
 /*---------------- genarate id and add-----------------*/
-$query = $db->prepare("SELECT * FROM sy_brand ORDER BY b_id DESC");
+$query = $db->prepare("SELECT * FROM sy_team ORDER BY t_id DESC");
 $query->execute();
 $row = $query->fetch(PDO::FETCH_ASSOC);
-$lastid = $row['b_id'];
+$lastid = $row['t_id'];
 
-if ($lastid == "") {
-    $bt_id = "b001";
+if (empty($lastid)) {
+    $number = "t001";
 } else {
-    $bt_idd = str_replace("b", "", $lastid);
-    $bt_id = str_pad($bt_idd + 1, 3, 0, STR_PAD_LEFT);
-    $number = 'b' . $bt_id;
-}
 
+    $tt_idd = str_replace("t", "", $lastid);
+    $tt_id = str_pad($tt_idd + 1, 3, 0, STR_PAD_LEFT);
+    $number = 't' . $tt_id;
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>ยี่ห้อเครื่องปรับอากาศ</title>
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-
-
-</head>
+<title>ทีมช่าง</title>
 
 <body id="page-top">
 
@@ -52,8 +32,8 @@ if ($lastid == "") {
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800"> ยี่ห้อเครื่องปรับอากาศ</h1>
-                <p class="mb-4">จัดการข้อมูลยี่ห้อเครื่องปรับอากาศ</p>
+                <h1 class="h3 mb-2 text-gray-800">ทีมช่าง</h1>
+                <p class="mb-4">จัดการข้อมูลทีมช่าง</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-9">
@@ -65,29 +45,32 @@ if ($lastid == "") {
                         <table class="table table-bordered" id="mytable" width="100%" cellspacing="0" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th style="display: none;">รหัสยี่ห้อเครื่องปรับอากาศ</th>
-                                    <th>ชื่อยี่ห้อเครื่องปรับอากาศ</th>
+                                    <th style="display: none;">รหัสทีมช่าง</th>
+                                    <th>ชื่อหัวหน้าทีมช่าง</th>
+                                    <th>ทีมที่</th>
                                     <th>จัดการ</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th style="display: none;">รหัสยี่ห้อเครื่องปรับอากาศ</th>
-                                    <th>ชื่อยี่ห้อเครื่องปรับอากาศ</th>
+                                    <th style="display: none;">รหัสทีมช่าง</th>
+                                    <th>ชื่อหัวหน้าทีมช่าง</th>
+                                    <th>ทีมที่</th>
                                     <th>จัดการ</th>
                                 </tr>
                             </tfoot>
 
                             <tbody>
                                 <?php
-                                $select_stmt = $db->prepare("SELECT * FROM sy_brand");
+                                $select_stmt = $db->prepare("SELECT * FROM sy_team");
                                 $select_stmt->execute();
 
                                 while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
                                     <tr>
-                                        <td style="display: none;"><?php echo $row["b_id"]; ?></td>
-                                        <td><?php echo $row["b_name"]; ?>
+                                        <td style="display: none;"><?php echo $row["t_id"]; ?></td>
+                                        <td><?php echo $row["t_head"]; ?>
+                                        <td><?php echo $row["t_number"]; ?>
                                             <!--<td><a href="#editEmployeeModal?update_id=" class="btn btn-warning">Edit</a></td>-->
                                         <td><a class="btn btn-warning editbtn" data-toggle="modal" data-target="#editModal">Edit</a>
                                             <a class="btn btn-danger deletebtn" data-toggle="modal" data-target="#deleteModal">Delete</a></td>
@@ -142,9 +125,9 @@ if ($lastid == "") {
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form method="POST" action="brand_control.php">
+                <form method="POST" action="team_control.php">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลยี่ห้อเครื่องปรับอากาศ</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูลทีมช่าง</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -152,16 +135,20 @@ if ($lastid == "") {
                     <div class="modal-body">
 
                         <div class="form-group" style="display: none;">
-                            <label>รหัสยี่ห้อเครื่องปรับอากาศ</label>
-                            <input type="text" class="form-control" id="id_status" name="brand_id" value="<?php echo $number ?>" readonly>
+                            <label>รหัสทีม</label>
+                            <input type="text" class="form-control" id="id_status" name="head_id" value="<?php echo $number ?>" readonly>
 
                         </div>
                         <div class="form-group">
-                            <label>ชื่อยี่ห้อเครื่องปรับอากาศ</label>
-                            <input type="text" class="form-control" id="pro_status" name="brand_type">
+                            <label>ชื่อหัวหน้าทีม</label>
+                            <input type="text" class="form-control" id="head_name" name="head_name">
                         </div>
-
-
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <label>ทีมที่</label>
+                                <input type="text" class="form-control" id="head_number" name="head_number">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
@@ -179,16 +166,20 @@ if ($lastid == "") {
     <div id="editModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="brand_control.php">
+                <form method="POST" action="team_control.php">
                     <div class="modal-header">
-                        <h4 class="modal-title">แก้ไขชื่อยี่ห้อเครื่องปรับอากาศา</h4>
+                        <h4 class="modal-title">แก้ไขชื่อหัวหน้าทีมช่าง</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
                         <div class="form-group">
-                            <label>ยี่ห้อเครื่องปรับอากาศ</label>
+                            <label>ชื่อหัวหน้าทีมช่าง</label>
                             <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label>ทีมที่</label>
+                            <input type="text" class="form-control" id="number" name="number">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -204,9 +195,9 @@ if ($lastid == "") {
     <div id="deleteModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="brand_control.php">
+                <form method="POST" action="team_control.php">
                     <div class="modal-header">
-                        <h4 class="modal-title">ลบชื่อยี่ห้อเครื่องปรับอากาศ</h4>
+                        <h4 class="modal-title">ลบข้อมูลทีมช่าง</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -236,6 +227,7 @@ if ($lastid == "") {
                 console.log(data);
                 $('#update_id').val(data[0]);
                 $('#name').val(data[1]);
+                $('#number').val(data[2]);
             });
         });
     </script>
@@ -255,8 +247,6 @@ if ($lastid == "") {
             });
         });
     </script>
-
-
 </body>
 
 </html>
