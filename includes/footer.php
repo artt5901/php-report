@@ -23,6 +23,9 @@
 
 
 <script>
+$('.dropdown-toggle').dropdown();
+</script>
+<script>
     $(document).ready( function () {
     $('#mytable').DataTable();
 } );
