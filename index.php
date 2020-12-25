@@ -1,4 +1,5 @@
 <?php include 'includes/connect.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 <title>Report</title>
@@ -24,7 +25,6 @@
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 </head>
-
 
 <body id="page-top">
 
@@ -464,8 +464,6 @@
                                         <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#editModal">แก้ไข</button>
                                         <button type="button" class="btn btn-danger deletebtn" data-toggle="modal" data-target="#deleteModal">ลบ</button>
                                         </td>
-                                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" style="float: right;" data-target="#addModal">เพิ่มข้อมูล</button> -->
-                                        <!-- <a class="btn btn-danger deletebtn" data-toggle="modal" data-target="#deleteModal">Delete</a> -->
                                 <?php } ?>
                             </td>
                             </tr>
@@ -642,7 +640,11 @@
                 <div class="container">
                 <div class="row">
                 <div class="col text-center">
-                <button type="button" class="btn btn-success btn-lg far fa-file-pdf"> PRINT</button>
+                <a class="btn btn-success btn-lg far fa-file-pdf" href="testpdf.php" role="button"> PRINT PDF</a>
+                <a class="btn btn-success btn-lg far fa-file-image" href="testjpg.php" role="button"> PRINT JPG</a>
+                <a class="btn btn-success btn-lg far fa-file-image" href="testphp_pdf.php" role="button"> testphp_pdf</a>
+                <!-- <button type="button" class="btn btn-success btn-lg far fa-file-pdf"><a href="testpdf.php"> PRINT PDF</a></button>
+                <button type="button" class="btn btn-success btn-lg far fa-file-image"><a href="testjpg.php"> PRINT JPG</a></button> -->
                 </div>
                 </div>
                 </div>
