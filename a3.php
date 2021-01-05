@@ -1,6 +1,17 @@
 <?php
 include ('includes/connect.php');
+include('a1.php');
 require_once __DIR__ . '/vendor/autoload.php';
+// $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+// $fontData = $defaultFontConfig['fontdata'];
+$mpdf = new \Mpdf\Mpdf([
+    'format' => 'A4',
+    'mode'   => 'utf-8',
+    'default_font_size' => 15,
+    'default_font' => 'sarabun',
+]);
+// <!-- ################################################################################################-->
+// <!-- ################################################################################################-->
 $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
 $fontData = $defaultFontConfig['fontdata'];
 $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp',
@@ -20,7 +31,8 @@ $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp',
     'format' => 'A4',
     'mode'   => 'utf-8',
 ]);
-
+// <!-- ################################################################################################-->
+// <!-- ################################################################################################-->
 // <!-- ########################################-->
 // 'D': download the PDF file
 // 'I': serves in-line to the browser
@@ -29,9 +41,7 @@ $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp',
 // <!-- ########################################-->
 // <!-- ################################################################################################-->
 // <!-- ################################################################################################-->
-//TEST METHODS
-
-// <!-- ################################################################################################-->
+//TEST METHODS##########################################################################################-->
 // <!-- ################################################################################################-->
 $mpdf->SetHeader('
 <table width="100%">
@@ -51,8 +61,7 @@ $mpdf->SetFooter('
     </tr>
 </table>');
 // <!-- ################################################################################################-->
-$mpdf->WriteHTML('
-<style>
+$mpdf->WriteHTML('<style>
    .testtable {
     background: #000000;
     width: 180mm;
@@ -83,38 +92,38 @@ $mpdf->WriteHTML('
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> ชื่อลูกค้า: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> คุณจักรยาน ยางแตกตู้มมม </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['name_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> เลขที่ใบงาน: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> 01234 </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['num_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> วันที่ปฏิบัติงาน: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> dd/mm/yy </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['day_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> หัวหน้าทีมช่างที่รับผิดชอบ: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> หัวหน้าทีมซักทีมนึง </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['boss_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> ยี่ห้อเครื่องปรับอากาศ: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> Mitsubishi </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['brand_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> รหัสรุ่น: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> 01234 </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['code_txt'] . '</td>
    </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> ขนาด BTU: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> 01234 </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['size_txt'] . '</td>
   </tr>
    <tr>
       <td class="config-value4" style="text-align: left;"> ประเภทน้ำยาทำความเย็น: </td>
-      <td class="config-value3" style="text-align: left; width:30%"> R33 </td>
+      <td class="config-value3" style="text-align: left; width:30%">' . $_POST['type_txt'] . '</td>
    </tr>
-   </table>
-');
+   </table>');
+// <!-- ################################################################################################-->
 // <!-- ################################################################################################-->
 
 $mpdf->WriteHTML('
@@ -297,11 +306,10 @@ $mpdf->WriteHTML('<style>
 <div class="tagban" style="background: #FA5E05 ">
 ภาพผลงานการล้างแอร์
 </div>');
-
+// // <!-- ################################################################################################-->
 // <!-- ################################################################################################-->
-// <!-- ################################################################################################-->
-ob_clean();
-$file_name = 'Test_Report.pdf';
+$file_name = 'Test_Post_method.pdf';
 $mpdf->Output($file_name, 'D');
+exit;
 // <!-- ################################################################################################-->
 // <!-- ################################################################################################-->
