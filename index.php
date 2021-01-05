@@ -1,4 +1,5 @@
-<?php include 'includes/connect.php' ?>
+<?php include 'includes/connect.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 <title>Report</title>
@@ -17,22 +18,6 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Bootstrap datepick -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.th.min.js" integrity="sha512-cp+S0Bkyv7xKBSbmjJR0K7va0cor7vHYhETzm2Jy//ZTQDUvugH/byC4eWuTii9o5HN9msulx2zqhEXWau20Dg==" crossorigin="anonymous"></script> -->
-
-    <!-- <script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                todayBtn: true,
-                language: 'th',             //เปลี่ยน label ต่างของ ปฏิทิน ให้เป็น ภาษาไทย   (ต้องใช้ไฟล์ bootstrap-datepicker.th.min.js นี้ด้วย)
-                thaiyear: true              //Set เป็นปี พ.ศ.
-            }).datepicker("setDate", "0");  //กำหนดเป็นวันปัจุบัน
-        });
-    </script> -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.th.min.js" integrity="sha512-cp+S0Bkyv7xKBSbmjJR0K7va0cor7vHYhETzm2Jy//ZTQDUvugH/byC4eWuTii9o5HN9msulx2zqhEXWau20Dg==" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -40,7 +25,6 @@
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 </head>
-
 
 <body id="page-top">
 
@@ -51,8 +35,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <?php include 'includes/navbar.php' ?>
-            <!-- ################################################################################################-->
-            <div class="col-lg-12">
+<!-- ################################################################################################-->
+            <div class="col d-flex justify-content-center">
+                <div class="col-lg-9">
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
@@ -66,9 +51,6 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-                            <!-- <h1>Grid Example</h1>
-            <p>This example demonstrates a 50%/50% split on small, medium, large and xlarge devices. On extra small devices, it will stack (100% width).</p>      
-            <p>Resize the browser window to see the effect.</p>  -->
                             <div class="container text-left">
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -115,14 +97,14 @@
                                                 modal: true,
                                                 header: true,
                                                 uiLibrary: 'bootstrap4',
-                                                format: 'dd/mmmm/yyyy',
+                                                format: 'dd-mmmm-yyyy',
                                             });
                                         </script>
 
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="usr">ขนาดBTU : </label>
+                                            <label for="usr">ขนาด BTU : </label>
                                             <input type="text" class="form-control" id="usr">
                                         </div>
                                     </div>
@@ -164,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- ################################################################################################-->
+<!-- ################################################################################################-->
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
@@ -174,175 +156,388 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Special title treatment</h5> -->
-                        <table class="table table-bordered table-dark">
+                        <div class="container text-right">
+                        <button type="button" class="btn btn-primary">เพิ่มรายการ</button>
+                        </div><br>
+
+                        <!-- ################################################################################################-->
+                        <table class="table table-bordered table-dark" id="mytable" width="100%" cellspacing="0" style="text-align: left;">
                             <thead>
                                 <tr>
-                                    <th scope="col">หัวข้อ</th>
-                                    <th scope="col">สถานะ</th>
+                                    <th style="display: none;">รหัสหัวข้อ</th>
+                                    <th class="text-center w-5"></th>
+                                    <th class="text-center w-45">หัวข้อ</th>
+                                    <th class="text-center w-25">สถานะ</th>
+                                    <th class="text-center w-25">จัดการ</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <tr>
-                                    <td>• ผลการตรวจสอบก่อนการล้าง ปริมาณฝุ่นที่สะสมอยู่ในคอยล์เย็น อยู่ในเกณฑ์</td>
-                                    <td>
+                                <?php
+                                $select_stmt = $db->prepare("SELECT * FROM sy_overview");
+                                $select_stmt->execute();
+
+                                while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <tr>
+                                        <td><div class="form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1"></div></td>
+                                        <td style="display: none;"><?php echo $row["v_id"]; ?></td>
+                                        <td><?php echo $row["v_list"]; ?>
+
+                                        <td>
                                         <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
+                                        <select class="custom-select" id="inputGroupSelect01">
+                                        <option>เลือกสถานะ</option>
+                                        <?php
+                                        $type = $db->prepare("SELECT * FROM sy_status");
+                                        $type->execute();
+
+                                        while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                        }
+                                        ?>
+                                        </select>
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบก่อนการล้าง สภาพทางกายภาพของเครื่องปรับอากาศ คอยล์ร้อน/เย็น อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบ สภาพการทำงานของคอยล์เย็น หลังล้าง อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบ สภาพการทำงานของคอยล์ร้อน หลังล้าง อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบ การทำอุณหภูมิ หลังล้าง ทำอุณหภูมิได้ อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบ แรงลมของพัดลมที่คอยล์เย็น หลังล้าง อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>• ผลการตรวจสอบ แรงดันน้ำยาทำความเย็น หลังล้าง อยู่ในเกณฑ์</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                เลือกสถานะ
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Link 1</a>
-                                                <a class="dropdown-item" href="#">Link 2</a>
-                                                <a class="dropdown-item" href="#">Link 3</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+
+                                        <td class="text-center">
+                                        <button type="button" class="btn btn-warning">แก้ไข</button>
+                                        <button type="button" class="btn btn-danger">ลบ</button>
+                                        </td>
+                                <?php } ?>
+                            </td>
+                            </tr>
                             </tbody>
                         </table>
+                        <!-- ################################################################################################-->
+<!-- ################################################################################################-->
+                        <!-- <table class="table table-bordered table-dark">
+                        <thead>
+                        <tr class="d-flex">
+                        <th class="col-7 text-center">หัวข้อ</th>
+                        <th class="col-3 text-center">สถานะ</th>
+                        <th class="col-2 text-center">จัดการ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบก่อนการล้าง ปริมาณฝุ่นที่สะสมอยู่ในคอยล์เย็น อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect01">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                            <textarea class="form-control" rows="2" id="comment">• ผลการตรวจสอบก่อนการล้าง สภาพทางกายภาพของเครื่องปรับอากาศ คอยล์ร้อน/เย็น อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect02">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบ สภาพการทำงานของคอยล์เย็น หลังล้าง อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect03">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck4">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบ สภาพการทำงานของคอยล์ร้อน หลังล้าง อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect04">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck5">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบ การทำอุณหภูมิ หลังล้าง ทำอุณหภูมิได้ อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect05">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck6">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบ แรงลมของพัดลมที่คอยล์เย็น หลังล้าง อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect06">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-7">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck7">
+                            <textarea class="form-control" rows="1" id="comment">• ผลการตรวจสอบ แรงดันน้ำยาทำความเย็น หลังล้าง อยู่ในเกณฑ์</textarea>
+                            </div>
+                        </td>
+                        <td class="col-sm-3">
+                            <div class="dropdown">
+                            <select class="custom-select" id="inputGroupSelect07">
+                            <option> เลือกสถานะ</option>
+                            <?php
+                                $type = $db->prepare("SELECT * FROM sy_status");
+                                $type->execute();
+
+                                while ($row1 = $type->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option id='" . $row1['s_id'] . "' value='" . $row1['s_id'] . "'>" . $row1['s_name'] . "</option>";
+                                }
+                            ?>
+                            </select>
+                            </div>
+                        </td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table> -->
                     </div>
                 </div>
-                <!-- ################################################################################################-->
+<!-- ################################################################################################-->
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
                             <h4>
-                                <div class="card-body">ผลการวัดก่อน และหลังล้าง (Checking Result)</div>
+                                <div class="card-body">ผลการวัดก่อนล้าง และหลังล้าง (Checking Result)</div>
                             </h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Special title treatment</h5> -->
-                        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-                        <table class="table table-bordered table-dark">
+                        <div class="container text-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">เพิ่มรายการ</button>
+                        </div><br>
+                        <!-- ################################################################################################-->
+                        <table class="table table-bordered table-dark" id="mytable" width="100%" cellspacing="0" style="text-align: left;">
                             <thead>
                                 <tr>
-                                    <th scope="col">ลำดับ</th>
-                                    <th scope="col">รายการ</th>
-                                    <th scope="col">ก่อนล้าง</th>
-                                    <th scope="col">หลังล้าง</th>
+                                    <th style="display: none;">รหัสรายการ</th>
+                                    <th class="text-center w-5"></th>
+                                    <th class="text-center w-50">รายการ</th>
+                                    <th class="text-center w-10">ก่อนล้าง</th>
+                                    <th class="text-center w-10">หลังล้าง</th>
+                                    <th class="text-center w-25">จัดการ</th>
                                 </tr>
                             </thead>
+<!-- ################################################################################################-->
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>ตรวจสอบอุณหภูมิหน้าเครื่อง (°C)</td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>ตรวจสอบแรงลมหน้าเครื่อง (เมตร/วินาที)</td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>ตรวจสอบแรงดันน้ำยาแอร์ (PSI.)</td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>ตรวจสอบกระแสไฟของคอมเพรสเซอร์. (A)</td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                    <td><input type="text" class="form-control" id="usr"></td>
-                                </tr>
+                                <?php
+                                $select_stmt = $db->prepare("SELECT * FROM sy_check");
+                                $select_stmt->execute();
+
+                                while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <tr>
+                                        <td><div class="form-check"><input type="checkbox" class="form-check-input" id="lists"></div></td>
+                                        <td style="display: none;"><?php echo $row["c_id"]; ?></td>
+                                        <td><?php echo $row["c_list"]; ?>
+
+                                        <td><input type="text" class="form-control" id="bef"></td>
+                                        <td><input type="text" class="form-control" id="aft"></td>
+
+                                        <td class="text-center">
+                                        <button type="button" class="btn btn-warning editbtn" data-toggle="modal" data-target="#editModal">แก้ไข</button>
+                                        <button type="button" class="btn btn-danger deletebtn" data-toggle="modal" data-target="#deleteModal">ลบ</button>
+                                        </td>
+                                <?php } ?>
+                            </td>
+                            </tr>
                             </tbody>
                         </table>
+<!-- ################################################################################################-->
+                        <!-- <table class="table table-bordered table-dark">
+                        <thead>
+                        <tr class="d-flex">
+                        <th class="col-6 text-center">รายการ</th>
+                        <th class="col-2 text-center">ก่อนล้าง</th>
+                        <th class="col-2 text-center">หลังล้าง</th>
+                        <th class="col-2 text-center">จัดการ</th>
+                        </tr>
+                        </thead>
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-6">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck001">
+                            <textarea class="form-control" rows="1" id="comment">ตรวจสอบอุณหภูมิหน้าเครื่อง (°C)</textarea></div></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-6">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck002">
+                            <textarea class="form-control" rows="1" id="comment">ตรวจสอบแรงลมหน้าเครื่อง (เมตร/วินาที)</textarea></div></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-6">
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck003">
+                            <textarea class="form-control" rows="1" id="comment">ตรวจสอบแรงดันน้ำยาแอร์ (PSI.)</textarea></div></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        
+                        <tr class="d-flex">
+                        <td class="col-sm-6"><div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck004">
+                            <textarea class="form-control" rows="1" id="comment">ตรวจสอบกระแสไฟของคอมเพรสเซอร์.</textarea></div></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2"><input type="text" class="form-control" id="usr"></td>
+                        <td class="col-sm-2 text-center">
+                            <button type="button" class="btn btn-warning">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </td>
+                        </tr>
+                        
+                        </table> -->
                     </div>
                 </div>
-                <!-- ################################################################################################-->
+<!-- ################################################################################################-->
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
@@ -352,13 +547,13 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Special title treatment</h5> -->
-                        <span style="padding-left:50px">จากการปฏิบัติงานล้างเครื่องปรับอากาศของทีมช่าง ทีมที่1 หัวหน้าช่างณัตพงษ์ แก้วทา ที่ศูนย์บริการทรีบรอดแบนด์(3BB) สาขาบึงสามพัน</span>
-                        <!-- <p class="card-text">จากการปฏิบัติงานล้างเครื่องปรับอากาศของทีมช่าง ทีมที่1  หัวหน้าช่างณัตพงษ์ แก้วทา  ที่ศูนย์บริการทรีบรอดแบนด์(3BB) สาขาบึงสามพัน</p> -->
-                        <p class="card-text">สภาพการทำงานของเครื่องปรับอากาศคุณลูกค้า อยู่ในเกณฑ์ปกติการตรวจวัดค่าต่างๆ ทั้งก่อนและหลังล้างเป็นไปตาม ตารางที่ 1 แสดงดังตางรางข้างบน</p>
+
+                        <div class="form-group">
+                        <textarea class="form-control" rows="3" id="comment">       จากการปฏิบัติงานล้างเครื่องปรับอากาศของทีมช่าง ทีมที่1  หัวหน้าช่างณัตพงษ์ แก้วทา  ที่ศูนย์บริการทรีบรอดแบนด์(3BB) สาขาบึงสามพันสภาพการทำงานของเครื่องปรับอากาศคุณลูกค้า อยู่ในเกณฑ์ปกติการตรวจวัดค่าต่างๆ ทั้งก่อนและหลังล้างเป็นไปตาม ตารางที่แสดงข้างบน</textarea>
+                        </div>
                     </div>
                 </div>
-                <!-- ################################################################################################-->
+<!-- ################################################################################################-->
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
@@ -368,14 +563,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Special title treatment</h5> -->
-                        <p class="card-text">• หมั่นตรวจสอบระบบระบายอากาศภายในห้องให้มีความเหมาะสมเพียงพอที่จะทำให้เกิดการหมุนเวียน อากาศบริสุทธิ์เข้ามาในห้องและดึงอากาศ</p>
-                        <p class="card-text">ที่มีการปนเปื้อนออกนอกห้อง หากมีความจำเป็นให้ติดตั้งระบบกรองอากาศตามความเหมาะสม</p>
-                        <p class="card-text">• ทำการปรับอุณหภูมิให้อยู่ในช่วงที่เหมาะสม เช่น การตั้งอุณหภูมิที่ 25 องศาเซลเซียส เพื่อช่วยลดความชื้นที่เกิดขึ้นภายในห้อง</p>
-                        <p class="card-text">• หมั่นทำความสะอาดเฟอร์นิเจอร์ ผ้าห่มและพื้น เพื่อกำจัดฝุ่นละอองที่สะสมให้ลดปริมาณลง เพื่อป้องกันฝุ่นสะสมที่เครื่องปรับอากาศ</p>
+                        <div class="form-group">
+                        <textarea class="form-control" rows="5" id="comment">
+    • หมั่นตรวจสอบระบบระบายอากาศภายในห้องให้มีความเหมาะสมเพียงพอที่จะทำให้เกิดการหมุนเวียน อากาศบริสุทธิ์เข้ามาในห้องและดึงอากาศที่มีการปนเปื้อนออกนอกห้อง หากมีความจำเป็นให้ติดตั้งระบบกรองอากาศตามความเหมาะสม
+    • ทำการปรับอุณหภูมิให้อยู่ในช่วงที่เหมาะสม เช่น การตั้งอุณหภูมิที่ 25 องศาเซลเซียส เพื่อช่วยลดความชื้นที่เกิดขึ้นภายในห้อง
+    • หมั่นทำความสะอาดเฟอร์นิเจอร์ ผ้าห่มและพื้น เพื่อกำจัดฝุ่นละอองที่สะสมให้ลดปริมาณลง เพื่อป้องกันฝุ่นสะสมที่เครื่องปรับอากาศ</textarea>
+                        </div>
                     </div>
                 </div>
-                <!-- ################################################################################################-->
+<!-- ################################################################################################-->
                 <div class="card text-left">
                     <div class="card-header">
                         <div class="card bg-primary text-white">
@@ -389,6 +585,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <p>ก่อนล้าง</p>
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addModal">เพิ่มภาพ</button><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
@@ -397,6 +594,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <p>หลังล้าง</p>
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addModal">เพิ่มภาพ</button><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
                                     <img src="..." class="rounded float-left" alt="..."><br>
@@ -405,6 +603,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <p>ภาพการปฏิบัติงาน</p>
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addModal">เพิ่มภาพ</button><br>
                                 </div>
                                 <div class="col-sm-6">
                                     <p></p>
@@ -435,39 +634,29 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <h5 class="card-title">Special title treatment</h5> -->
-                        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
                     </div>
                 </div>
-                <!-- ################################################################################################-->
-                <!-- <div class="row">
-            <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+<!-- ################################################################################################-->
+                <div class="container">
+                <div class="row">
+                <div class="col text-center">
+                <a class="btn btn-success btn-lg far fa-file-pdf" href="testpdf.php" role="button"> PRINT PDF</a>
+                <a class="btn btn-success btn-lg far fa-file-image" href="testjpg.php" role="button"> PRINT JPG</a>
+                <a class="btn btn-success btn-lg far fa-file-image" href="testphp_pdf.php" role="button"> testphp_pdf</a>
+                <!-- <button type="button" class="btn btn-success btn-lg far fa-file-pdf"><a href="testpdf.php"> PRINT PDF</a></button>
+                <button type="button" class="btn btn-success btn-lg far fa-file-image"><a href="testjpg.php"> PRINT JPG</a></button> -->
+                </div>
+                </div>
+                </div>
+<!-- ################################################################################################-->
+
             </div>
-            </div>
-            </div>
-            <div class="col-sm-6">
-            <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            </div>
-            </div>
-            </div> -->
-                <!-- ################################################################################################-->
-                <button type="button" class="btn btn-success btn-lg btn-block far fa-file-pdf"> PRINT</button>
-                <!-- ################################################################################################-->
-            </div>
+</div>
+            
             <!-- End of Main Content -->
 
             <?php include 'includes/footer.php' ?>
-
+<!-- ################################################################################################-->
     </div>
     <!-- End of Content Wrapper -->
 
